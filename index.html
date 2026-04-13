@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>打工人·AI时代工具箱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f7fc 0%, #eef2f6 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #1f3b4c, #2b5c6f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #4a6272;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(43,92,111,0.12);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1f5e74;
+            margin-top: 1rem;
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1rem 1.8rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255,255,255,0.6);
+            text-align: center;
+            min-width: 130px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f5e74;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #4f6f82;
+        }
+
+        /* 分类标签栏 */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 2.5rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #3b5c6f;
+            background: #f0f4f8;
+        }
+        .tab-btn.active {
+            background: #1f5e74;
+            color: white;
+            box-shadow: 0 8px 18px rgba(31,94,116,0.25);
+        }
+        .tab-btn:hover:not(.active) {
+            background: #e2e9f0;
+        }
+
+        /* 工具卡片网格 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.6rem;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.3rem 1.5rem;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f8;
+            backdrop-filter: blur(2px);
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+            border-color: #cbdde6;
+        }
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        .tool-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f3b4c;
+        }
+        .tool-desc {
+            font-size: 0.9rem;
+            color: #5e7c8f;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eef3f9;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1f5e74;
+            transition: 0.2s;
+        }
+        .tool-link:hover {
+            background: #1f5e74;
+            color: white;
+        }
+
+        /* 灵感 / 文章区块 */
+        .insight-section {
+            margin-top: 3.5rem;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 1.8rem 2rem;
+            border: 1px solid #ffffff;
+        }
+        .insight-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quote-text {
+            font-size: 1rem;
+            background: #f6fafd;
+            padding: 1rem 1.3rem;
+            border-radius: 1.2rem;
+            color: #2c4c5e;
+            border-left: 4px solid #1f5e74;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #7c95a6;
+            border-top: 1px solid #dce5ec;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1.2rem; }
+            .hero h1 { font-size: 1.9rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .stat-card { padding: 0.6rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>⚡ 打工人·AI工具箱</h1>
+        <p>拒绝信息过载 · 帮你找到2026年的效率杠杆</p>
+        <div class="badge">✨ 一人公司 | 新质生产力 | 轻量化成长</div>
+    </div>
+
+    <!-- 动态数字卡片（纯前端模拟） -->
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div class="stat-number" id="aiToolsCount">0</div><div class="stat-label">AI工具推荐</div></div>
+        <div class="stat-card"><div class="stat-number" id="savedHours">0</div><div class="stat-label">打工人每周省时/h</div></div>
+        <div class="stat-card"><div class="stat-number" id="activeUsers">0</div><div class="stat-label">同路人社区</div></div>
+    </div>
+
+    <!-- 分类标签 -->
+    <div class="tabs" id="tabContainer">
+        <button class="tab-btn active" data-category="all">全部 🔥</button>
+        <button class="tab-btn" data-category="ai">🤖 AI效率</button>
+        <button class="tab-btn" data-category="design">🎨 设计/素材</button>
+        <button class="tab-btn" data-category="code">💻 开发/无代码</button>
+        <button class="tab-btn" data-category="study">📚 学习/副业</button>
+    </div>
+
+    <!-- 工具列表展示区 -->
+    <div class="tools-grid" id="toolsGrid"></div>
+
+    <!-- 每日灵感 / 行动建议 -->
+    <div class="insight-section">
+        <div class="insight-title">📌 今日行动 · 轻量破局</div>
+        <div class="quote-text" id="dailyTip">
+            “用AI把重复工作压缩80%，把省下的时间用来思考真正重要的事。”
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 0.5rem;">
+            <a href="#" id="refreshTipBtn" style="font-size:0.8rem; background:#eef2f6; padding:0.3rem 1rem; border-radius:30px; text-decoration:none; color:#1f5e74;">🎲 换一条灵感</a>
+        </div>
+    </div>
+    <footer>
+        🛠️ 可直接部署 · 所有链接均为示例，可替换成你自己的收藏 <br>
+        适配电脑/手机 | 开源无追踪
+    </footer>
+</div>
+
+<script>
+    // ---------- 工具数据 (完全可自定义) ----------
+    const toolsData = [
+        { id: 1, name: "ChatGPT / 深度工作助手", desc: "AI对话 + 文档分析，帮你快速整理思路、生成初稿。", category: "ai", url: "https://chat.openai.com", icon: "💬" },
+        { id: 2, name: "Midjourney 提示词宝典", desc: "设计灵感库，免费提示词参考，一人公司做视觉物料。", category: "design", url: "https://www.midjourney.com/showcase", icon: "🎨" },
+        { id: 3, name: "v0.dev (AI前端生成)", desc: "自然语言生成React组件，非技术人员也能搭页面。", category: "code", url: "https://v0.dev", icon: "⚛️" },
+        { id: 4, name: "Notion 第二大脑", desc: "知识库+项目管理，打工人必备免费模版。", category: "study", url: "https://www.notion.so", icon: "🧠" },
+        { id: 5, name: "Gamma AI 幻灯片", desc: "一句话生成PPT，汇报/讲课效率翻倍。", category: "ai", url: "https://gamma.app", icon: "📊" },
+        { id: 6, name: "Canva 设计魔法", desc: "AI平面设计、社交媒体配图，零基础也出彩。", category: "design", url: "https://www.canva.com", icon: "✨" },
+        { id: 7, name: "GitHub Copilot", desc: "AI结对编程，提升代码速度，适合开发者。", category: "code", url: "https://github.com/features/copilot", icon: "👨‍💻" },
+        { id: 8, name: "Bilibili 技能树", desc: "海量免费AI/职场/副业教程，碎片时间充电。", category: "study", url: "https://www.bilibili.com", icon: "📺" },
+        { id: 9, name: "Perplexity AI", desc: "联网AI搜索，比传统搜索更聪明，查资料省时间。", category: "ai", url: "https://www.perplexity.ai", icon: "🔍" },
+        { id: 10, name: "Figma 社区", desc: "海量UI/UX免费设计资源，一人创业必备。", category: "design", url: "https://www.figma.com/community", icon: "🎯" },
+        { id: 11, name: "Replit 云端开发", desc: "浏览器写代码，一键部署网站，零成本试错。", category: "code", url: "https://replit.com", icon: "☁️" },
+        { id: 12, name: "多邻国 / 轻英语", desc: "每日15分钟，保持全球视野，争取海外机会。", category: "study", url: "https://www.duolingo.com", icon: "🌎" }
+    ];
+
+    // 数字滚动效果 (简单装饰)
+    function animateNumber(element, target, suffix = '') {
+        let current = 0;
+        const step = Math.ceil(target / 50);
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                element.innerText = target + suffix;
+                clearInterval(timer);
+            } else {
+                element.innerText = current + suffix;
+            }
+        }, 15);
+    }
+
+    // 统计数据展示（只是前端美化，无后端）
+    const aiToolsCountSpan = document.getElementById('aiToolsCount');
+    const savedHoursSpan = document.getElementById('savedHours');
+    const activeUsersSpan = document.getElementById('activeUsers');
+    
+    // 计算AI工具数量
+    const aiCount = toolsData.filter(t => t.category === 'ai').length;
+    animateNumber(aiToolsCountSpan, aiCount, '');
+    animateNumber(savedHoursSpan, 12, '+');
+    animateNumber(activeUsersSpan, 286, 'k');
+
+    // 获取网格容器
+    const toolsGrid = document.getElementById('toolsGrid');
+    let currentCategory = 'all';
+
+    // 渲染卡片
+    function renderTools(category) {
+        const filtered = category === 'all' ? toolsData : toolsData.filter(t => t.category === category);
+        if (filtered.length === 0) {
+            toolsGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">暂无该分类工具，试试其他标签～</div>`;
+            return;
+        }
+        toolsGrid.innerHTML = filtered.map(tool => `
+            <div class="tool-card">
+                <div class="card-icon">${tool.icon}</div>
+                <div class="tool-title">${tool.name}</div>
+                <div class="tool-desc">${tool.desc}</div>
+                <a href="${tool.url}" class="tool-link" target="_blank" rel="noopener noreferrer">访问网站 →</a>
+            </div>
+        `).join('');
+    }
+
+    // 切换标签逻辑
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    function setActiveTab(activeCategory) {
+        tabBtns.forEach(btn => {
+            const cat = btn.getAttribute('data-category');
+            if ((activeCategory === 'all' && cat === 'all') || (cat === activeCategory)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const cat = btn.getAttribute('data-category');
+            currentCategory = cat;
+            renderTools(currentCategory);
+            setActiveTab(currentCategory);
+        });
+    });
+
+    // 初始渲染全部
+    renderTools('all');
+
+    // 每日灵感库 (小彩蛋)
+    const tipsList = [
+        "从今天起，每天用一个AI工具完成一项重复劳动（例如写周报）。",
+        "把你的技能拆解成「可交付成果」，尝试在闲鱼/小红书接单。",
+        "打造个人作品集网站——代码就在这个页面，改改就能用。",
+        "每周花3小时学AI基础，6个月后你会超过80%的同龄人。",
+        "不要只打工，用AI辅助做一个小产品（工具/内容/咨询）。",
+        "主动向上管理：用ChatGPT生成汇报模板，突出你的价值。",
+        "尝试「数字游民」一天：去咖啡厅用Notion规划副业路径。",
+        "面对AI焦虑，最实在的办法是「先动手用起来」。"
+    ];
+    const dailyTipDiv = document.getElementById('dailyTip');
+    const refreshBtn = document.getElementById('refreshTipBtn');
+    function updateRandomTip() {
+        const randomIndex = Math.floor(Math.random() * tipsList.length);
+        dailyTipDiv.innerText = `✨ ${tipsList[randomIndex]}`;
+    }
+    refreshBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        updateRandomTip();
+    });
+    updateRandomTip();
+</script>
+</body>
+</html>
